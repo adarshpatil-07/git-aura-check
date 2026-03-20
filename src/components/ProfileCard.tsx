@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { GitFork, Users, Eye, FileCode, Calendar, ExternalLink, Share2, Copy } from "lucide-react";
+import { GitFork, Users, Eye, FileCode, Shield, ExternalLink, Share2, Copy } from "lucide-react";
 import { toPng } from "html-to-image";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 import type { AuraProfile } from "@/lib/github";
 
 interface Props {
@@ -54,7 +55,7 @@ export function ProfileCard({ aura, onReset }: Props) {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="w-full max-w-md mx-auto"
     >
-      <div ref={cardRef} className="glass-strong rounded-2xl gradient-border overflow-hidden">
+      <div ref={cardRef} className={`glass-strong rounded-2xl overflow-hidden ${aura.accountAgeYears >= 5 ? 'ring-2 ring-yellow-500/60 shadow-[0_0_20px_rgba(234,179,8,0.15)]' : 'gradient-border'}`}>
         {/* Aura header band */}
         <div className="px-6 pt-6 pb-4 text-center relative">
           <motion.div
@@ -117,6 +118,28 @@ export function ProfileCard({ aura, onReset }: Props) {
           <p className="text-3xl font-bold neon-text-cyan font-mono">{aura.auraScore}</p>
         </motion.div>
 
+        {/* Veteran status */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.65 }}
+          className="mx-6 mt-3 rounded-xl bg-background/50 p-3 flex items-center justify-between border border-border/30"
+        >
+          <div className="flex items-center gap-2">
+            <Shield size={15} className="text-muted-foreground" />
+            <span className="text-xs text-muted-foreground">Veteran Status</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold font-mono text-foreground">{aura.accountAgeYears} {aura.accountAgeYears === 1 ? 'Year' : 'Years'}</span>
+            {aura.accountAgeYears >= 5 && (
+              <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-[10px] px-1.5 py-0">Legacy</Badge>
+            )}
+            {aura.accountAgeYears < 1 && (
+              <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-[10px] px-1.5 py-0">Rising Star</Badge>
+            )}
+          </div>
+        </motion.div>
+
         {/* Stats */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -128,7 +151,6 @@ export function ProfileCard({ aura, onReset }: Props) {
           <StatItem icon={Users} label="Followers" value={user.followers} />
           <StatItem icon={Eye} label="Following" value={user.following} />
           <StatItem icon={FileCode} label="Public Gists" value={user.public_gists} />
-          <StatItem icon={Calendar} label="Account Age" value={`${aura.accountAgeYears}y ${Math.floor((aura.accountAgeDays % 365) / 30)}m`} />
         </motion.div>
 
         {/* Actions */}
