@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { GitFork, Users, Eye, FileCode, Calendar, ExternalLink, Share2, Copy } from "lucide-react";
+import { GitFork, Users, Eye, FileCode, Shield, ExternalLink, Share2, Copy } from "lucide-react";
 import { toPng } from "html-to-image";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 import type { AuraProfile } from "@/lib/github";
 
 interface Props {
