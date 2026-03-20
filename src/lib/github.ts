@@ -89,6 +89,10 @@ export function computeAura(user: GitHubUser): AuraProfile {
     auraType = "The Observer";
     auraEmoji = "👁️";
     auraDescription = "You watch, you learn, you absorb the collective genius.";
+  } else if (accountAgeYears < 1) {
+    auraType = "The Rising Star";
+    auraEmoji = "🌟";
+    auraDescription = "Fresh on the scene with unlimited potential. Your journey begins now.";
   } else {
     auraType = "The Newcomer";
     auraEmoji = "🌱";
