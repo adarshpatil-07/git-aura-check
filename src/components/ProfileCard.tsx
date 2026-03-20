@@ -55,7 +55,7 @@ export function ProfileCard({ aura, onReset }: Props) {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="w-full max-w-md mx-auto"
     >
-      <div ref={cardRef} className="glass-strong rounded-2xl gradient-border overflow-hidden">
+      <div ref={cardRef} className={`glass-strong rounded-2xl overflow-hidden ${aura.accountAgeYears >= 5 ? 'ring-2 ring-yellow-500/60 shadow-[0_0_20px_rgba(234,179,8,0.15)]' : 'gradient-border'}`}>
         {/* Aura header band */}
         <div className="px-6 pt-6 pb-4 text-center relative">
           <motion.div
