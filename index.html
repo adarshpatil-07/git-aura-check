@@ -4,58 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Git Aura Check</title>
-  <meta name="description" content="Enter a GitHub username and get an aura score based on public profile stats.">
+  <meta name="description" content="Type a GitHub username and find out what your aura is.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>Git Aura Check</h1>
-    <p class="intro">Type a GitHub username to get an aura score from public profile stats. The score is a simple formula, and the full breakdown is shown with every result.</p>
+  <div class="page">
+    <header class="top">
+      <span class="brand">Git Aura Check</span>
+    </header>
 
-    <form id="search-form" novalidate>
-      <label for="username">GitHub username</label>
-      <div class="row">
-        <input id="username" name="username" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="for example, torvalds" required>
-        <button type="submit">Check aura</button>
-      </div>
-    </form>
+    <main>
+      <section class="hero">
+        <h1>What's your aura?</h1>
+        <p class="sub">Type any GitHub username. We read the public profile and tell you what you are.</p>
 
-    <p id="status" role="status" aria-live="polite"></p>
+        <form id="search-form" novalidate>
+          <label class="sr" for="username">GitHub username</label>
+          <div class="field">
+            <span class="at">@</span>
+            <input id="username" name="username" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="username" required>
+            <button type="submit">Check aura</button>
+          </div>
+        </form>
+        <p id="status" role="status" aria-live="polite"></p>
+      </section>
 
-    <section id="result" hidden>
-      <div class="profile">
-        <img id="avatar" alt="" width="64" height="64">
-        <div>
-          <h2 id="name"></h2>
-          <a id="profile-link" href="#" target="_blank" rel="noopener"></a>
+      <article id="result" class="card" hidden>
+        <div class="who">
+          <img id="avatar" alt="" width="72" height="72">
+          <div class="who-text">
+            <h2 id="name"></h2>
+            <a id="profile-link" href="#" target="_blank" rel="noopener"></a>
+            <p id="bio"></p>
+          </div>
         </div>
-      </div>
 
-      <div class="score">
-        <p class="tier" id="tier"></p>
-        <p class="points"><span id="points"></span> aura points</p>
-        <div class="bar" role="img" aria-label="Aura progress">
-          <div class="bar-fill" id="bar-fill"></div>
+        <div class="verdict">
+          <p class="points"><span id="points">0</span><small>aura points</small></p>
+          <p class="persona" id="persona"></p>
+          <p class="line" id="line"></p>
         </div>
-        <p class="bar-note">The bar fills at 1,500 points.</p>
-      </div>
 
-      <h3>How the score was built</h3>
-      <table>
-        <thead>
-          <tr><th scope="col">Part</th><th scope="col">Calculation</th><th scope="col" class="num">Points</th></tr>
-        </thead>
-        <tbody id="breakdown"></tbody>
-      </table>
+        <div class="meter">
+          <div class="meter-track"><div class="meter-fill" id="meter-fill"></div></div>
+          <p class="meter-note" id="meter-note"></p>
+        </div>
 
-      <h3>Most used languages</h3>
-      <p id="languages"></p>
-    </section>
-  </main>
+        <dl class="stats">
+          <div><dt>Followers</dt><dd id="s-followers"></dd></div>
+          <div><dt>Repos</dt><dd id="s-repos"></dd></div>
+          <div><dt>Stars</dt><dd id="s-stars"></dd></div>
+          <div><dt>Forks</dt><dd id="s-forks"></dd></div>
+        </dl>
 
-  <footer>
-    <p>Data comes from the <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener">GitHub REST API</a>. Not affiliated with GitHub.</p>
-  </footer>
+        <div class="langs">
+          <h3>Most used languages</h3>
+          <ul id="languages"></ul>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <p>Data from the <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener">GitHub REST API</a>. Not affiliated with GitHub.</p>
+    </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>
