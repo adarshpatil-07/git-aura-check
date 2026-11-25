@@ -1,34 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>GitHub Aura // Vibe Check</title>
-    <meta name="description" content="Scan any GitHub profile to see their developer rank, account age, and &#39;Aura Type&#39; in a sleek, high-end dashboard. Fast, client-side, and aesthetic.">
-    <meta name="author" content="Lovable" />
-
-    <!-- TODO: Update og:title to match your application name -->
-    
-    
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/cdf01560-24e3-40ab-add1-24f5bd120eb3?Expires=1774034284&amp;GoogleAccessId=go-api-on-aws%40gpt-engineer-390607.iam.gserviceaccount.com&amp;Signature=kbH0FFeaoTEwCFmvFZ0VwdmnyOEaMtd5qkr2EB2%2BQh7JV5lCPwcckuu%2B3XeZQn%2BasJiTLagoQLWevBv1viaAb1%2F%2F2x60nnxhBm1q4po1qXsxPx%2BTHM8Xhqg19jJhJH%2BMaSEfU%2Fg8%2BRp3IjGuyFSTGLoVf9JK%2B%2BplEPpT%2FFehPdTLz7QbD1iEeJ5LmyAVXN2b9XKxf%2BIiy3rF%2F4mGz57AFtgj%2FUC08Sc%2FBXNltHl%2FILsOubwf5oqgoXxm26HAPWfVhtRDTDpvu2sH1s5uGwWdZVneh0fryKH5Q9yFBnbjSUlMlZ%2FPxJNkByYYd%2FLFsLFoaco34tiNNbPkBfAWqMgieg%3D%3D">
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/cdf01560-24e3-40ab-add1-24f5bd120eb3?Expires=1774034284&amp;GoogleAccessId=go-api-on-aws%40gpt-engineer-390607.iam.gserviceaccount.com&amp;Signature=kbH0FFeaoTEwCFmvFZ0VwdmnyOEaMtd5qkr2EB2%2BQh7JV5lCPwcckuu%2B3XeZQn%2BasJiTLagoQLWevBv1viaAb1%2F%2F2x60nnxhBm1q4po1qXsxPx%2BTHM8Xhqg19jJhJH%2BMaSEfU%2Fg8%2BRp3IjGuyFSTGLoVf9JK%2B%2BplEPpT%2FFehPdTLz7QbD1iEeJ5LmyAVXN2b9XKxf%2BIiy3rF%2F4mGz57AFtgj%2FUC08Sc%2FBXNltHl%2FILsOubwf5oqgoXxm26HAPWfVhtRDTDpvu2sH1s5uGwWdZVneh0fryKH5Q9yFBnbjSUlMlZ%2FPxJNkByYYd%2FLFsLFoaco34tiNNbPkBfAWqMgieg%3D%3D">
-    
-  
-  
-  
-  <meta property="og:title" content="GitHub Aura // Vibe Check">
-  <meta name="twitter:title" content="GitHub Aura // Vibe Check">
-  <meta property="og:description" content="Scan any GitHub profile to see their developer rank, account age, and &#39;Aura Type&#39; in a sleek, high-end dashboard. Fast, client-side, and aesthetic.">
-  <meta name="twitter:description" content="Scan any GitHub profile to see their developer rank, account age, and &#39;Aura Type&#39; in a sleek, high-end dashboard. Fast, client-side, and aesthetic.">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Git Aura Check</title>
+  <meta name="description" content="Enter a GitHub username and get an aura score based on public profile stats.">
+  <link rel="stylesheet" href="style.css">
 </head>
+<body>
+  <main>
+    <h1>Git Aura Check</h1>
+    <p class="intro">Type a GitHub username to get an aura score from public profile stats. The score is a simple formula, and the full breakdown is shown with every result.</p>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <form id="search-form" novalidate>
+      <label for="username">GitHub username</label>
+      <div class="row">
+        <input id="username" name="username" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="for example, torvalds" required>
+        <button type="submit">Check aura</button>
+      </div>
+    </form>
+
+    <p id="status" role="status" aria-live="polite"></p>
+
+    <section id="result" hidden>
+      <div class="profile">
+        <img id="avatar" alt="" width="64" height="64">
+        <div>
+          <h2 id="name"></h2>
+          <a id="profile-link" href="#" target="_blank" rel="noopener"></a>
+        </div>
+      </div>
+
+      <div class="score">
+        <p class="tier" id="tier"></p>
+        <p class="points"><span id="points"></span> aura points</p>
+        <div class="bar" role="img" aria-label="Aura progress">
+          <div class="bar-fill" id="bar-fill"></div>
+        </div>
+        <p class="bar-note">The bar fills at 1,500 points.</p>
+      </div>
+
+      <h3>How the score was built</h3>
+      <table>
+        <thead>
+          <tr><th scope="col">Part</th><th scope="col">Calculation</th><th scope="col" class="num">Points</th></tr>
+        </thead>
+        <tbody id="breakdown"></tbody>
+      </table>
+
+      <h3>Most used languages</h3>
+      <p id="languages"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Data comes from the <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener">GitHub REST API</a>. Not affiliated with GitHub.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
