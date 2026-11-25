@@ -2,7 +2,7 @@
 
 Enter any GitHub username and get an aura score built from public profile stats. Every result shows exactly how the score was calculated.
 
-**Live demo:** https://YOUR-LIVE-LINK-HERE
+**Live demo:** https://adarshpatil-07.github.io/git-aura-check/
 
 ## What it does
 
