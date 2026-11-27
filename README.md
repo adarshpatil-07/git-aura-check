@@ -10,6 +10,11 @@ Enter any GitHub username and get an aura score built from public profile stats.
 - Calculates an aura score from followers, stars, forks, repo count and account age.
 - Shows a tier (from "Just landed" to "Legend"), a progress bar, a full score breakdown and the user's most used languages.
 
+## How to use
+1. Open the live demo.
+2. Enter a GitHub username.
+3. See the aura score and breakdown.
+
 ## GitHub API endpoints used
 
 | Endpoint | Used for |
